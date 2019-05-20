@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "com.google.cloud.tools:appengine-gradle-plugin:$appengine_plugin_version"
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'com.google.cloud.tools.appengine'
+apply plugin: 'war'
+
+
+group 'ktor'
+version '0.0.1'
+//mainClassName = "io.ktor.server.jetty.EngineMain" // comentar essa linha quando usar war
+
+sourceSets {
+    main.kotlin.srcDirs = main.java.srcDirs = ['src/main/kotlin']
+    test.kotlin.srcDirs = test.java.srcDirs = ['src/main/kotlin']
+    main.resources.srcDirs = ['src/main/resources']
+    test.resources.srcDirs = ['src/test/resources']
+}
+
+repositories {
+    mavenLocal()
+    jcenter()
+    maven { url 'https://kotlin.bintray.com/ktor' }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation "io.ktor:ktor-server-servlet:$ktor_version"
+    implementation "io.ktor:ktor-server-jetty:$ktor_version"
+    implementation "io.ktor:ktor-html-builder:$ktor_version"
+    implementation "ch.qos.logback:logback-classic:$logback_version"
+    implementation "io.ktor:ktor-server-core:$ktor_version"
+    implementation "io.ktor:ktor-server-host-common:$ktor_version"
+    implementation "io.ktor:ktor-locations:$ktor_version"
+    implementation "io.ktor:ktor-gson:$ktor_version"
+    implementation 'com.google.cloud:google-cloud-datastore:1.66.0'
+    implementation 'com.google.cloud:google-cloud-storage:1.70.0'
+    testImplementation "io.ktor:ktor-server-tests:$ktor_version"
+}
